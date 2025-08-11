@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          ID=$((10#$(TZ=Asia/Seoul date +%M) + 1))
+          minute=$(date +%M)
+          ID=$((10#$minute + 1))
           curl -s "https://jsonplaceholder.typicode.com/todos/$ID" -o /tmp/test.json
       - uses: actions/upload-artifact@v4
         with:
