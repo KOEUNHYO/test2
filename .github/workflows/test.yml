@@ -1,9 +1,8 @@
 name: Collect todos
-
 on:
   schedule:
-    - cron: "*/5 * * * *" # 5분마다
-  push:                   # 레포 이벤트 발생 시
+    - cron: "*/5 * * * *"
+  push:
   workflow_dispatch:
 
 jobs:
@@ -13,4 +12,7 @@ jobs:
       - run: |
           ID=$((10#$(TZ=Asia/Seoul date +%M) + 1))
           curl -s "https://jsonplaceholder.typicode.com/todos/$ID" -o /tmp/test.json
-          cat /tmp/test.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: test.json
+          path: /tmp/test.json
